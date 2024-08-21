@@ -51,6 +51,10 @@ class Pipeline:
     def step(self, frame: np.ndarray) -> GazeResultContainer:
 
         # Creating containers
+        area = 0
+        ind = 0
+        ind_ans = 0
+        maior_area = 0
         face_imgs = []
         bboxes = []
         landmarks = []
@@ -64,9 +68,27 @@ class Pipeline:
                     #faces = sorted(faces, key=lambda x: x[2] * x[3], reverse=True) #w * h
                 #x = box2 - box0 e y = box3 - box1
                 # x * y = area
-                #print(faces)
-                for box, landmark, score in faces:
+                for box, _, score in faces:
+                    area = (box[2] - box[0]) * (box[3] - box[1])
+                    if score < self.confidence_threshold:
+                        area = -1
+                    if ind == 0:
+                        maior_area = area
+                    else:
+                        if area > maior_area:
+                            maior_area = area
+                            ind_ans = ind
+                    ind+=1
+                try:
+                    print(faces[ind_ans])
+                except:
+                    print("IND_ANS BUG")
+
+
+
+                for box, landmark, score in [faces[ind_ans]]:
                     # Apply threshold
+                    #print(box)
                     if score < self.confidence_threshold:
                         continue
 
