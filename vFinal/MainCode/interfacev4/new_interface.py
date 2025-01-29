@@ -14,7 +14,7 @@ def main():
     global button_image_1, button_image_2, button_image_3, button_image_4
 
     OUTPUT_PATH = Path(__file__).parent
-    ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\fapesp-inatel\git_\EyesOn_1\MainCode\interfacev4\assets\frame0")
+    ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Pyprojects-Edu\EyesOn\vFinal\MainCode\interfacev4\assets\frame0")
 
     def relative_to_assets(path: str) -> Path:
         return ASSETS_PATH / Path(path)
@@ -108,7 +108,7 @@ def screen1():
     global button_image_1, button_image_2, button_image_3, button_image_4, button_image_5, button_image_6
 
     OUTPUT_PATH = Path(__file__).parent
-    ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\fapesp-inatel\git_\EyesOn_1\MainCode\interfacev4\assets\frame1")
+    ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Pyprojects-Edu\EyesOn\vFinal\MainCode\interfacev4\assets\frame1")
 
     def relative_to_assets(path: str) -> Path:
         return ASSETS_PATH / Path(path)
@@ -257,7 +257,7 @@ def screen2():
     global button_image_1, button_image_2, button_image_3, button_image_4, button_image_5, button_image_6, button_image_7
 
     OUTPUT_PATH = Path(__file__).parent
-    ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\fapesp-inatel\git_\EyesOn_1\MainCode\interfacev4\assets\frame2")
+    ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Pyprojects-Edu\EyesOn\vFinal\MainCode\interfacev4\assets\frame2")
 
     def relative_to_assets(path: str) -> Path:
         return ASSETS_PATH / Path(path)

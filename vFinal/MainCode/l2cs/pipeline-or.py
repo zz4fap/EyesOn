@@ -10,6 +10,7 @@ from face_detection import RetinaFace
 
 from .utils import prep_input_numpy, getArch
 from .results import GazeResultContainer
+from sklearn.preprocessing import PolynomialFeatures
 from MainCode.mouse_clicks import click
 
 

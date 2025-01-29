@@ -45,5 +45,5 @@ def click_mouse(detector, predictor, frame):
         right_eye = get_blinking_ratio([42, 43, 44, 45, 46, 47], t)
         #blinking_ratio = (left_eye + right_eye) / 2
         blinking_ratio = left_eye
-        print(blinking_ratio)
+        #print(blinking_ratio)
     return blinking_ratio

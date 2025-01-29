@@ -21,7 +21,7 @@ class Interface:
 
     def main(self):
         OUTPUT_PATH = Path(__file__).parent
-        ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\fapesp-inatel\git_\EyesOn_1\MainCode\interfacev4\assets\frame0")
+        ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Pyprojects-Edu\EyesOn\vFinal\MainCode\interfacev4\assets\frame0")
 
         pag.moveTo(1595, 345)
         def relative_to_assets(path: str) -> Path:
@@ -83,7 +83,7 @@ class Interface:
 
     def screen1(self):
         OUTPUT_PATH = Path(__file__).parent
-        ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\fapesp-inatel\git_\EyesOn_1\MainCode\interfacev4\assets\frame1")
+        ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Pyprojects-Edu\EyesOn\vFinal\MainCode\interfacev4\assets\frame1")
 
         def relative_to_assets(path: str) -> Path:
             return ASSETS_PATH / Path(path)
@@ -165,7 +165,7 @@ class Interface:
 
     def screen2(self):
         OUTPUT_PATH = Path(__file__).parent
-        ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\fapesp-inatel\git_\EyesOn_1\MainCode\interfacev4\assets\frame2")
+        ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Pyprojects-Edu\EyesOn\vFinal\MainCode\interfacev4\assets\frame2")
 
         def relative_to_assets(path: str) -> Path:
             return ASSETS_PATH / Path(path)

@@ -3,7 +3,6 @@ import numpy as np
 from .results import GazeResultContainer
 import pyautogui as pag
 import time
-from sklearn.preprocessing import PolynomialFeatures
 
 #PULAR DE LETRA EM LETRA
 #tentar fazer com interface também
@@ -16,7 +15,6 @@ from sklearn.preprocessing import PolynomialFeatures
 
 dx_global = 0
 dy_global = 0
-
 
 last_execution_time = 0
 dx_l = np.random.rand(5).tolist()
@@ -42,9 +40,8 @@ def calc_dx_dy(a,b,c,d,pitchyaw,scale=1.7):
 
     return dx_mean, dy_mean
 
-def move_cursor(results: GazeResultContainer, kb_t, calc_t, google_t, model_x, model_y, blink):
+def move_cursor(results: GazeResultContainer, kb_t, calc_t, google_t, model_x, model_y):
     global last_execution_time
-    poly = PolynomialFeatures(degree=2)
     current_time = time.time()
     for i in range(results.pitch.shape[0]):
         bbox = results.bboxes[i]
@@ -67,43 +64,62 @@ def move_cursor(results: GazeResultContainer, kb_t, calc_t, google_t, model_x, m
         bbox_width = x_max - x_min
         bbox_height = y_max - y_min
 
-    ttt = np.array([[results.pitch, results.yaw]])
-    if ttt.ndim > 2:
-        ttt = ttt.reshape(-1, 2)
-    poly.fit(ttt)
-    X_test_poly = poly.transform(ttt)
+    #dx_mean, dy_mean = calc_dx_dy(x_min, y_min, bbox_width, bbox_height, (pitch, yaw))
 
-    x_pred = model_x.predict(X_test_poly)
-    y_pred = model_y.predict(X_test_poly)
-    x_pred = x_pred[0]
-    y_pred = y_pred[0]
-
-    #print(x_pred)
-    #print(y_pred)
-    #print()
-
-# 500 - 1500
-# 200 - 800
-
+    #print(f"dx = {dx_mean} /// dy = {dy_mean}")
     center_all = False
     right = False
     left = False
     top = False
     bottom = False
 
-    x, y = pag.position()
-    if x_pred > 500 and x_pred < 1500 and y_pred > 200 and y_pred < 800:
-        center_all = True
-    elif x_pred <= 500:
-        left = True
-    elif x_pred >= 1500:
-        right = True
-    elif y_pred <= 200:
-        top = True
-    elif y_pred >= 800:
-        bottom = True
-        blink = False
+#calibração puxando informações de um csv ou notepad
+    limit_right = False
+    limit_left = False
+    limit_top = False
+    limit_bot = False
 
+    x, y = pag.position()
+    if dx_mean < limit_left and dx_mean > limit_right and dy_mean < limit_bot and dy_mean > limit_top:
+        center_all = True
+
+    if google_t:
+        if dx_mean >= limit_left:
+            left = True
+        elif dx_mean <= limit_right:
+            right = True
+
+    elif kb_t or calc_t:
+        if dx_mean < limit_left and dx_mean > limit_right and dy_mean < 70 and dy_mean > 0:
+            center_all = True
+        if dx_mean >= limit_left:
+            left = True
+        elif dx_mean <= limit_right:
+            right = True
+        elif dy_mean <= 0:
+            top = True
+        elif dy_mean >= 70:
+            bottom = True
+    else:
+        if dx_mean >= limit_left:
+            left = True
+        elif dx_mean <= limit_right:
+            right = True
+        elif dy_mean <= limit_top:
+            top = True
+        elif dy_mean >= limit_bot:
+            bottom = True
+    #print(dx_mean, dy_mean)
+
+
+    #X
+    #1 -> 320
+    #2 -> 960
+    #3 -> 1600
+
+    #Y
+    #1 -> 270
+    #2 -> 810
     px, py = 0, 0
     if kb_t:
         interface_geral = False
@@ -121,9 +137,7 @@ def move_cursor(results: GazeResultContainer, kb_t, calc_t, google_t, model_x, m
         interface_geral = True
         px = 485
         py = 320
-
-    print(blink)
-    if current_time - last_execution_time >= 0.5 and not blink: #a cada x segundos é possível fazer um movimento com o cursor
+    if current_time - last_execution_time >= 0.5: #a cada x segundos é possível fazer um movimento com o cursor
         last_execution_time = current_time
         if interface_geral:
             if center_all:
@@ -163,6 +177,9 @@ def move_cursor(results: GazeResultContainer, kb_t, calc_t, google_t, model_x, m
                 print("BOTTOM")
                 if y + py < 1080:
                     pag.moveTo(x, y + py)
+
+
+#
 
 
 def draw_gaze(a,b,c,d,image_in, pitchyaw, thickness=2, color=(255, 255, 0),scale=1.7, dx_l=dx_l, dy_l=dy_l):

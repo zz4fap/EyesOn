@@ -18,6 +18,7 @@ import interface_google
 import mouse_clicks.click as click
 import dlib
 import new_interface
+import joblib
 
 
 CWD = pathlib.Path.cwd()
@@ -48,6 +49,7 @@ def parse_args():
 if __name__ == '__main__':
     args = parse_args()
     avg_fps = []
+    b_act = False
     cudnn.enabled = True
     arch=args.arch
     cam = args.cam_id
@@ -58,6 +60,10 @@ if __name__ == '__main__':
         arch='ResNet50',
         device=torch.device('cuda') #cpu or cuda
     )
+
+    model_x = joblib.load('linear_models/model_x_linear_morePitch_noflash-29.01.pkl')
+    model_y = joblib.load('linear_models/model_y_linear_morePitch_noflash-29.01.pkl')
+    print("Models loaded successfully!")
 
     detector = dlib.get_frontal_face_detector()
     predictor = dlib.shape_predictor('./mouse_clicks/shape_predictor_68_face_landmarks.dat')
@@ -75,10 +81,10 @@ if __name__ == '__main__':
         raise IOError("Cannot open webcam")
     else:
         print("Webcam OK")
-        #interface_tela.start()
+        interface_tela.start()
         print("INTERFACE OK")
     with torch.no_grad():
-        while True: #enquanto o programa roda ...
+        while interface_tela.is_alive(): #enquanto o programa roda ...
             # Get frame
             success, frame = cap.read()
             start_fps = time.time()
@@ -93,17 +99,19 @@ if __name__ == '__main__':
             if blinking >= 4 and success:
                 frame_count+=1
                 print("PRINT FRAME COUNT ", frame_count)
+                b_act = True
                 if frame_count == 12:
                     pag.click()
                     frame_count = 0
             else:
                 frame_count = 0
+                b_act = False
 
 
             # Process frame
             results = gaze_pipeline.step(frame) #calc é feito
             try:
-                vis.move_cursor(results, teclado.keyb_thread_on, calculadora.calc_thread_on, interface_google.interface_google_on)
+                vis.move_cursor(results, teclado.keyb_thread_on, calculadora.calc_thread_on, interface_google.interface_google_on, model_x, model_y, b_act)
             except:
                 print("0 FACES DETECTADAS")
 
