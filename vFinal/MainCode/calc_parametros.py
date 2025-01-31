@@ -23,7 +23,7 @@ def convert_to_float(data):
 def euclidean_distance(x, y, xr, yr):
     return np.sqrt((np.array(x) - xr)**2 + (np.array(y) - yr)**2)
 
-with open('accuracy4s_test8-flashttt-eachPredict-24.01.csv', newline='') as f:
+with open('accuracy4s_test10-noFlash-eachPredict-30.01.csv', newline='') as f:
     reader = csv.reader(f)
     data = list(reader)
 

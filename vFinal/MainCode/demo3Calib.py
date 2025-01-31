@@ -19,6 +19,7 @@ import mouse_clicks.click as click
 import dlib
 import new_interface
 import joblib
+import csv
 
 
 CWD = pathlib.Path.cwd()
@@ -43,14 +44,18 @@ def parse_args():
     args = parser.parse_args()
     return args
 
-
+frame_count = 0
 
 
 if __name__ == '__main__':
     args = parse_args()
     avg_fps = []
+    ac_tracker = []
+    blink_aux = False
     b_act = False
     cudnn.enabled = True
+    tempo = 0
+    aux_tempo = True
     arch=args.arch
     cam = args.cam_id
     snapshot_path = args.snapshot
@@ -61,8 +66,8 @@ if __name__ == '__main__':
         device=torch.device('cuda') #cpu or cuda
     )
 
-    model_x = joblib.load('linear_models/model_x_linear_morePitch_noflash-29.01.pkl')
-    model_y = joblib.load('linear_models/model_y_linear_morePitch_noflash-29.01.pkl')
+    model_x = joblib.load('linear_models/model_x_linear_morePitch_noflash-30.01.pkl')
+    model_y = joblib.load('linear_models/model_y_linear_morePitch_noflash-30.01.pkl')
     print("Models loaded successfully!")
 
     detector = dlib.get_frontal_face_detector()
@@ -89,20 +94,28 @@ if __name__ == '__main__':
             success, frame = cap.read()
             start_fps = time.time()
 
+            if aux_tempo:
+                tempo = time.time()
+                aux_tempo = False
+
             if not success:
                 print("Failed to obtain frame")
                 time.sleep(0.1)
 
             blinking = click.click_mouse(detector, predictor, frame)
             print(blinking)
+
             #CLICK NA PISCADA
             if blinking >= 4 and success:
                 frame_count+=1
                 print("PRINT FRAME COUNT ", frame_count)
                 b_act = True
-                if frame_count == 12:
+                if frame_count == 12 and blink_aux:
                     pag.click()
                     frame_count = 0
+                    ac_tracker.append( ( time.time() - tempo, teclado.keyb_thread_on, calculadora.calc_thread_on, interface_google.interface_google_on) )
+                    aux_tempo = True
+
             else:
                 frame_count = 0
                 b_act = False
@@ -111,7 +124,7 @@ if __name__ == '__main__':
             # Process frame
             results = gaze_pipeline.step(frame) #calc é feito
             try:
-                vis.move_cursor(results, teclado.keyb_thread_on, calculadora.calc_thread_on, interface_google.interface_google_on, model_x, model_y, b_act)
+                blink_aux = vis.move_cursor(results, teclado.keyb_thread_on, calculadora.calc_thread_on, interface_google.interface_google_on, model_x, model_y, b_act)
             except:
                 print("0 FACES DETECTADAS")
 
@@ -129,6 +142,11 @@ if __name__ == '__main__':
                 break
             success,frame = cap.read()
         cap.release()
+
+with open('ac_tracker.csv', 'w') as f:
+    # using csv.writer method from CSV package
+    write = csv.writer(f)
+    write.writerows(ac_tracker)
 
 
 avg_fps = np.array(avg_fps)

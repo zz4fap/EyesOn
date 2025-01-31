@@ -10,7 +10,7 @@ from sklearn.linear_model import LinearRegression
 poly = PolynomialFeatures(degree=2, include_bias=True)
 
 # Read CSV data
-with open('calibration4s_file9-noflash-eachPredict-29-01.csv', newline='') as f:
+with open('calibration4s_file10-noflash-eachPredict-30-01.csv', newline='') as f:
     reader = csv.reader(f)
     data = list(reader)
 
@@ -38,7 +38,7 @@ model_y = LinearRegression()
 model_y.fit(poly_features, coord_y)
 
 # Test data  # Example pitch-yaw pairs
-all = [[-0.635, -0.025], [0.204, -0.217], [0.658, -0.548]]
+all = [[-0.549, -0.0269], [0.185, -0.180], [0.487, -0.494]]
 X_test_poly = poly.transform(all)  # Transform test data using polynomial features
 y_test_x = [50, 1263, 1870]  # True target values for X
 y_test_y = [50, 376, 1030]  # True target values for Y
@@ -68,7 +68,7 @@ print("R-squared Score for X:", r2_x)
 print("R-squared Score for Y:", r2_y)
 
 # Save the models to files
-joblib.dump(model_x, 'model_x_linear_morePitch_noflash-29.01.pkl')  # Save model_x
-joblib.dump(model_y, 'model_y_linear_morePitch_noflash-29.01.pkl')  # Save model_y
+joblib.dump(model_x, 'model_x_linear_morePitch_noflash-B-30.01.pkl')  # Save model_x
+joblib.dump(model_y, 'model_y_linear_morePitch_noflash-B-30.01.pkl')  # Save model_y
 
 print("Models saved successfully!")

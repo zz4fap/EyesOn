@@ -41,8 +41,8 @@ def click_mouse(detector, predictor, frame):
 
         det = shape[36:48]
 
-        left_eye = get_blinking_ratio([36, 37, 38, 39, 40, 41], t)
-        right_eye = get_blinking_ratio([42, 43, 44, 45, 46, 47], t)
+        right_eye = get_blinking_ratio([36, 37, 38, 39, 40, 41], t)
+        left_eye = get_blinking_ratio([42, 43, 44, 45, 46, 47], t)
         #blinking_ratio = (left_eye + right_eye) / 2
         blinking_ratio = left_eye
         #print(blinking_ratio)

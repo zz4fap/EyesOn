@@ -164,6 +164,8 @@ def move_cursor(results: GazeResultContainer, kb_t, calc_t, google_t, model_x, m
                 if y + py < 1080:
                     pag.moveTo(x, y + py)
 
+    return blink
+
 
 def draw_gaze(a,b,c,d,image_in, pitchyaw, thickness=2, color=(255, 255, 0),scale=1.7, dx_l=dx_l, dy_l=dy_l):
     """Draw gaze angle on given image with a given eye positions."""

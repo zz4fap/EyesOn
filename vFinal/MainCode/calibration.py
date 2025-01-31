@@ -164,7 +164,7 @@ class GazeEvaluationThread(threading.Thread):
 
                 if time.time() - new_start > 65.5: #16points 2s each = 32
                     stop_time = True
-                    with open('calibration4s_file9-noflash-eachPredict-29-01.csv', 'w') as f:
+                    with open('calibration4s_file10-noflash-eachPredict-30-01.csv', 'w') as f:
                         # using csv.writer method from CSV package
                         write = csv.writer(f)
                         write.writerows(py_global)
