@@ -10,16 +10,15 @@ from face_detection import RetinaFace
 
 from .utils import prep_input_numpy, getArch
 from .results import GazeResultContainer
-from MainCode.mouse_clicks import click
 
 
 class Pipeline:
 
     def __init__(
-        self, 
-        weights: pathlib.Path, 
+        self,
+        weights: pathlib.Path,
         arch: str,
-        device: str = 'cpu', 
+        device: str = 'cpu',
         include_detector:bool = True,
         confidence_threshold:float = 0.5
         ):
@@ -100,7 +99,7 @@ class Pipeline:
                         y_min = 0
                     x_max=int(box[2])
                     y_max=int(box[3])
-                    
+
                     # Crop image
                     img = frame[y_min:y_max, x_min:x_max]
 
@@ -162,7 +161,7 @@ class Pipeline:
         return results
 
     def predict_gaze(self, frame: Union[np.ndarray, torch.Tensor]):
-        
+
         # Prepare input
         if isinstance(frame, np.ndarray):
             img = prep_input_numpy(frame, self.device)
@@ -173,18 +172,18 @@ class Pipeline:
             #print("TORC.TENSOR GPU?")
         else:
             raise RuntimeError("Invalid dtype for input")
-    
-        # Predict 
+
+        # Predict
         gaze_pitch, gaze_yaw = self.model(img)
         pitch_predicted = self.softmax(gaze_pitch)
         yaw_predicted = self.softmax(gaze_yaw)
         #print("PITCH : ", pitch_predicted)
         #print("YAW : ", yaw_predicted)
-        
+
         # Get continuous predictions in degrees.
         pitch_predicted = torch.sum(pitch_predicted.data * self.idx_tensor, dim=1) * 4 - 180
         yaw_predicted = torch.sum(yaw_predicted.data * self.idx_tensor, dim=1) * 4 - 180
-        
+
         pitch_predicted= pitch_predicted.cpu().detach().numpy()* np.pi/180.0
         yaw_predicted= yaw_predicted.cpu().detach().numpy()* np.pi/180.0
         #print("PITCH : ", pitch_predicted)

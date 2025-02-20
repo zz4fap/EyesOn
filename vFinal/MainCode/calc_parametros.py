@@ -23,7 +23,7 @@ def convert_to_float(data):
 def euclidean_distance(x, y, xr, yr):
     return np.sqrt((np.array(x) - xr)**2 + (np.array(y) - yr)**2)
 
-with open('accuracy4s_test10-noFlash-eachPredict-30.01.csv', newline='') as f:
+with open('linear_models/accuracy4s_test10-noFlash-eachPredict-30.01.csv', newline='') as f:
     reader = csv.reader(f)
     data = list(reader)
 
@@ -52,7 +52,7 @@ for d in data:
     data_ans.append( (d[2], d[3]) )'''
 
 #print(dist)
-D = 500
+D = 600
 rad = []
 deg = []
 aae = []
@@ -78,17 +78,17 @@ for d in deg:
 
 #print(aae)
 #print(len(aae))
-print("Distância Euclidiana:", dist)
-print("Radianos:", rad)
-print("Graus:", deg)
+#print("Distância Euclidiana:", dist)
+#print("Radianos:", rad)
+#print("Graus:", deg)
 print("AAE: ", aae)
 
-print(p_medio )
+#print(p_medio )
 
 p_dist = [euclidean_distance(item[0], item[1], item[2], item[3]) for item in p_medio]
 cc = 0
 for p in p_medio:
-    print(f"x:{p[0]:.2f}  y:{p[1]:.2f} ///// x_g:{p[2]}  y_g:{p[3]} ///// d:{p_dist[cc]:.2f}")
+    print(f"Q{cc} -- Ponto Médio:  ({p[0]:.2f}, {p[1]:.2f}) / Ground Truth: ({p[2]},{p[3]}) / AAE: {aae[cc]:.2f}")
     cc+=1
 
 
