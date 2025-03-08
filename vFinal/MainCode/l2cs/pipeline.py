@@ -11,6 +11,7 @@ from face_detection import RetinaFace
 from .utils import prep_input_numpy, getArch
 from .results import GazeResultContainer
 
+face_ant = []
 
 class Pipeline:
 
@@ -18,7 +19,7 @@ class Pipeline:
         self,
         weights: pathlib.Path,
         arch: str,
-        device: str = 'cpu',
+        device: str = 'cuda',
         include_detector:bool = True,
         confidence_threshold:float = 0.5
         ):
@@ -51,6 +52,7 @@ class Pipeline:
     def step(self, frame: np.ndarray) -> GazeResultContainer:
 
         # Creating containers
+        global face_ant
         area = 0
         ind = 0
         ind_ans = 0
@@ -62,6 +64,13 @@ class Pipeline:
 
         if self.include_detector:
             faces = self.detector(frame)
+            if len(face_ant) == 0:
+                face_ant = faces.copy()
+            if faces and faces[0] is not None:
+                if abs(faces[0][0][0] - face_ant[0][0][0]) < 10 and abs(faces[0][0][1] - face_ant[0][0][1]) < 10 and abs(faces[0][0][2] - face_ant[0][0][2]) < 10 and abs(faces[0][0][3] - face_ant[0][0][3]) < 10:
+                    faces = face_ant.copy()
+                else:
+                    face_ant = faces.copy()
 
             if faces and faces[0] is not None:
                 for box, _, score in faces:
@@ -140,10 +149,6 @@ class Pipeline:
 
         else:
             pitch, yaw = self.predict_gaze(frame)
-
-
-        if pitch < 0:
-            pitch *= 2.6
 
         # Save data
         results = GazeResultContainer(

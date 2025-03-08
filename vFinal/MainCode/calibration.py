@@ -76,8 +76,8 @@ class CalibrationPoints(threading.Thread):
             # Atualiza a tela
             pygame.display.flip()
 
-            # Espera 2 segundos
-            time.sleep(4)
+            # Espera 5 segundos
+            time.sleep(5)
             ball_global = True
 
         pygame.quit()
@@ -154,7 +154,7 @@ class GazeEvaluationThread(threading.Thread):
                 y_list.append(results.yaw)
 
                 if ball_global:
-                    py_global.append( (np.mean(p_list), np.mean(y_list), posicoes[contador][0], posicoes[contador][1]) )
+                    py_global.append( (np.mean(p_list[ ( 2 * len(p_list) ) // 5: ( 4 * len(p_list) ) // 5]), np.mean(y_list[ ( 2 * len(y_list ) ) // 5: ( 4 * len(p_list) ) // 5]), posicoes[contador][0], posicoes[contador][1]) )
                     contador+=1
                     p_list.clear()
                     y_list.clear()
@@ -162,9 +162,9 @@ class GazeEvaluationThread(threading.Thread):
                 #print(time.time() - new_start)
                 print()
 
-                if time.time() - new_start > 66.5: #16points 2s each = 32
+                if time.time() - new_start > 82.5: #16points 5s each = 82
                     stop_time = True
-                    with open('calib_10xPonto/calibration4s_file11-pt10-20-02.csv', 'w') as f:
+                    with open('calib_10xPonto/calibration5s_file17-pt7.csv', 'w') as f:
                         # using csv.writer method from CSV package
                         write = csv.writer(f)
                         write.writerows(py_global)

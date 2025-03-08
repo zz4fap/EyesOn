@@ -10,7 +10,7 @@ from sklearn.linear_model import LinearRegression
 poly = PolynomialFeatures(degree=2, include_bias=True)
 
 # Read CSV data
-with open('calibration4s_file10-noflash-eachPredict-30-01.csv', newline='') as f:
+with open('calibration4s_calib20x-file-20-02.csv', newline='') as f:
     reader = csv.reader(f)
     data = list(reader)
 

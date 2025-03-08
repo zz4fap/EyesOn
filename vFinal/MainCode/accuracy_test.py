@@ -143,8 +143,8 @@ class GazeEvaluationThread(threading.Thread):
         start = time.time()
         cudnn.enabled = True
 
-        model_x = joblib.load('model_x_linear_morePitch_noflash-30.01.pkl')
-        model_y = joblib.load('model_y_linear_morePitch_noflash-30.01.pkl')
+        model_x = joblib.load('model_x_linear_morePitch-27.02.pkl')
+        model_y = joblib.load('model_y_linear_morePitch-27.02.pkl')
         print("Models loaded successfully!")
 
         self.initialize_pipeline()
@@ -205,7 +205,7 @@ class GazeEvaluationThread(threading.Thread):
 
                 if time.time() - new_start > 37.5: #9points
                     stop_time = True
-                    with open('accuracy4s_test10-noFlash-eachPredict-30.01.csv', 'w') as f:
+                    with open('accuracy4s_test15-27.02.csv', 'w') as f:
                         # using csv.writer method from CSV package
                         write = csv.writer(f)
                         write.writerows(py_global)

@@ -19,8 +19,8 @@ dy_global = 0
 
 
 last_execution_time = 0
-dx_l = np.random.rand(5).tolist()
-dy_l = np.random.rand(5).tolist()
+#dx_l = np.random.rand(5).tolist()
+#dy_l = np.random.rand(5).tolist()
 def calc_dx_dy(a,b,c,d,pitchyaw,scale=1.7):
     global dx_global, dy_global
     length = c * scale #I CAN RESCALE THE ARROW
@@ -28,19 +28,19 @@ def calc_dx_dy(a,b,c,d,pitchyaw,scale=1.7):
     dx = -length * np.sin(pitchyaw[0]) * np.cos(pitchyaw[1])
     dy = -length * np.sin(pitchyaw[1])
 
-    dx_l.pop(0)
-    dy_l.pop(0)
+    #dx_l.pop(0)
+    #dy_l.pop(0)
 
-    dx_l.append(dx)
-    dy_l.append(dy)
+    #dx_l.append(dx)
+    #dy_l.append(dy)
 
-    dx_mean = np.mean(dx_l)
-    dy_mean = np.mean(dy_l)
+    #dx_mean = np.mean(dx_l)
+    #dy_mean = np.mean(dy_l)
 
-    dx_global = dx_mean
-    dy_global = dy_mean
+    #dx_global = dx_mean
+    #dy_global = dy_mean
 
-    return dx_mean, dy_mean
+    return dx, dy
 
 def move_cursor(results: GazeResultContainer, kb_t, calc_t, google_t, model_x, model_y, blink):
     global last_execution_time
@@ -167,7 +167,7 @@ def move_cursor(results: GazeResultContainer, kb_t, calc_t, google_t, model_x, m
     return blink
 
 
-def draw_gaze(a,b,c,d,image_in, pitchyaw, thickness=2, color=(255, 255, 0),scale=1.7, dx_l=dx_l, dy_l=dy_l):
+def draw_gaze(a,b,c,d,image_in, pitchyaw, thickness=2, color=(255, 255, 0),scale=1.7):
     """Draw gaze angle on given image with a given eye positions."""
     image_out = image_in
     (h, w) = image_in.shape[:2]
@@ -178,19 +178,18 @@ def draw_gaze(a,b,c,d,image_in, pitchyaw, thickness=2, color=(255, 255, 0),scale
     dx = -length * np.sin(pitchyaw[0]) * np.cos(pitchyaw[1])
     dy = -length * np.sin(pitchyaw[1])
 
-    dx_l.pop(0)
-    dy_l.pop(0)
+    #dx_l.pop(0)
+    #dy_l.pop(0)
 
-    dx_l.append(dx)
-    dy_l.append(dy)
+    #dx_l.append(dx)
+    #dy_l.append(dy)
 
-    dx_mean = np.mean(dx_l)
-    dy_mean = np.mean(dy_l)
-
+    #dx_mean = np.mean(dx_l)
+    #dy_mean = np.mean(dy_l)
     cv2.arrowedLine(image_out, tuple(np.round(pos).astype(np.int32)),
-                   tuple(np.round([pos[0] + dx_mean, pos[1] + dy_mean]).astype(int)), color,
+                   tuple(np.round([pos[0] + dx, pos[1] + dy]).astype(int)), color,
                    thickness, cv2.LINE_AA, tipLength=0.18)
-    return dx_l, dy_l, image_out  #esse return não importa o que retorna
+    return dx, dy, image_out  #esse return não importa o que retorna
 
     #FUNÇÃO INTERIOR PARA COLETAR AS DIREÇÕES
     #get_direcoes(left, right, top, bottom, center, center_all)

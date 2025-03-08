@@ -75,7 +75,7 @@ if __name__ == '__main__':
         raise IOError("Cannot open webcam")
     else:
         print("Webcam OK")
-        #interface_tela.start()
+        interface_tela.start()
         print("INTERFACE OK")
     with torch.no_grad():
         while True: #enquanto o programa roda ...

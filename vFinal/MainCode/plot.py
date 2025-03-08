@@ -16,7 +16,7 @@ def convert_to_float(data):
 
     return converted_data
 
-with open('linear_models/calibration4s_file10-noflash-eachPredict-30-01.csv', newline='') as f:
+with open('calib_10xPonto/calibration5s_file16-pt5.csv', newline='') as f:
     reader = csv.reader(f)
     data = list(reader)
 # Convert data to float
