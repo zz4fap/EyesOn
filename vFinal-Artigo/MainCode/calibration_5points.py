@@ -19,10 +19,11 @@ import cv2
 
 def calcular_posicoes(w=1920, h=1080, r=50):
     return [
-        (r, r),  # Superior esquerdo
-        (w - r, r),  # Superior direito
-        (r, h - r),  # Inferior esquerdo
-        (w - r, h - r),  # Inferior direito
+        (r, r),               # Superior esquerdo
+        (w - r, r),           # Superior direito
+        (w // 2, h // 2),     # Centro (novo)
+        (r, h - r),           # Inferior esquerdo
+        (w - r, h - r),       # Inferior direito
     ]
 
 
@@ -43,6 +44,7 @@ class CalibrationPoints(threading.Thread):
         return [
             (r, r),  # Superior esquerdo
             (w - r, r),  # Superior direito
+            (w // 2, h // 2),  # Centro (novo)
             (r, h - r),  # Inferior esquerdo
             (w - r, h - r),  # Inferior direito
         ]
@@ -53,7 +55,7 @@ class CalibrationPoints(threading.Thread):
         global ball_global
         pygame.init()
         screen = pygame.display.set_mode((self.screen_width, self.screen_height))
-        pygame.display.set_caption("4 Pontos com Base na Matriz")
+        pygame.display.set_caption("5 Pontos com Base na Matriz")
         time.sleep(7.6)
         for pos in self.positions:
             for event in pygame.event.get():
@@ -158,9 +160,9 @@ class GazeEvaluationThread(threading.Thread):
                 #print(time.time() - new_start)
                 print()
 
-                if time.time() - new_start > 21: #4points 5s each = 20 + 1
+                if time.time() - new_start > 26: #5points 5s each = 25 + 1
                     stop_time = True
-                    with open('calib_10xPonto/calib12/calib_file12.csv', 'w', newline='') as f:
+                    with open('calib_10xPonto/calib12/calib_file12_5pontos.csv', 'w', newline='') as f:
                         # using csv.writer method from CSV package
                         write = csv.writer(f)
                         write.writerows(py_global)

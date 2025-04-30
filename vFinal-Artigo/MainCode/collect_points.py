@@ -88,23 +88,17 @@ class GazeEvaluationThread(threading.Thread):
         start = time.time()
         cudnn.enabled = True
 
-        file_path = 'calib_10xPonto/calib11/calib_file.csv'
+        file_path = 'calib_10xPonto/calib12/calib_file12.csv'
         data = load_and_convert_csv(file_path)
-        pitch_min = np.mean((data[0][0], data[2][0]))
-        pitch_max = np.mean((data[1][0], data[3][0]))
-        yaw_min = np.mean((data[0][1], data[1][1]))
-        yaw_max = np.mean((data[2][1], data[3][1]))
-        pitch_aux = 0
-        yaw_aux = 0
 
-        if pitch_min < 0:
-            pitch_aux = abs(pitch_min)
-            pitch_max += abs(pitch_min)
-            pitch_min += abs(pitch_min)
+        pitch_min = np.mean( (data[0][0], data[2][0]))
+        pitch_max = np.mean( (data[1][0], data[3][0]))
+        yaw_min = np.mean( (data[0][1], data[1][1]))
+        yaw_max = np.mean( (data[2][1], data[3][1]))
 
-        if yaw_min < 0:
-            yaw_max *= -1
-            yaw_min *= -1
+        pitch_offset = -pitch_min
+        yaw_offset = -yaw_min
+
 
         self.initialize_pipeline()
 
@@ -125,34 +119,33 @@ class GazeEvaluationThread(threading.Thread):
                 #print(f"Pitch: {results.pitch}")
                 #print(f"Yaw: {results.yaw}")
 
-                yaw = results.yaw * (-1)
-                pitch = results.pitch + pitch_aux
-                #print("PITCH E YAW", pitch, yaw)
+                pitch_max_escalonado = pitch_max + pitch_offset
+                pitch_escalonado = results.pitch + pitch_offset
+                pos_x = (pitch_escalonado / pitch_max_escalonado) * width
 
-                rel_pitch = pitch / (pitch_max)
-                rel_yaw = yaw / (yaw_max)
+                yaw_max_escalonado = yaw_max + yaw_offset
+                yaw_escalonado = results.yaw + yaw_offset
+                pos_y = (yaw_escalonado / yaw_max_escalonado) * height
 
-                pos_x = rel_pitch * width
-                pos_y = rel_yaw * height
 
-                if pos_x[0] < 0:
-                    pos_x = [0]
+                if pos_x < 0:
+                    pos_x = 0
 
-                if pos_x[0] > 1920:
-                    pos_x = [1920]
+                if pos_x > 1920:
+                    pos_x = 1920
 
-                if pos_y[0] > 1080:
-                    pos_y = [1080]
+                if pos_y > 1080:
+                    pos_y = 1080
 
-                if pos_y[0] < 0:
-                    pos_y = [0]
+                if pos_y < 0:
+                    pos_y = 0
 
                 print(pos_x, pos_y)
                 print()
 
 
-                x_list.append(pos_x[0])
-                y_list.append(pos_y[0])
+                x_list.append(pos_x)
+                y_list.append(pos_y)
 
 
                 if ball_global:
@@ -171,7 +164,7 @@ class GazeEvaluationThread(threading.Thread):
                 if time.time() - new_start > 345: #X points
                     stop_time = True
                     print("SAVING")
-                    with open('calib_10xPonto/calib11/teste_4points_allPreds13x21p-pt1.csv', 'w', newline='') as f:
+                    with open('calib_10xPonto/calib12/teste_4points_allPreds13x21p-pt1-TESTESFTESTES.csv', 'w', newline='') as f:
                         # using csv.writer method from CSV package
                         write = csv.writer(f)
                         write.writerows(py_global)
@@ -297,7 +290,7 @@ if __name__ == "__main__":
 
     # Configuração do timer para mudar os quadrados
     CHANGE_EVENT = pygame.USEREVENT + 1
-    pygame.time.set_timer(CHANGE_EVENT, 2500)  # Muda a cada x segundos
+    pygame.time.set_timer(CHANGE_EVENT, 300)  # Muda a cada x segundos
 
     # Padrão de ativação dos quadrados
     squares_order = [(row, col) for row in range(ROWS) for col in range(COLS)]

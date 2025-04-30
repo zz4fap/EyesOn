@@ -3,7 +3,6 @@ import numpy as np
 from .results import GazeResultContainer
 import pyautogui as pag
 import time
-from sklearn.preprocessing import PolynomialFeatures
 
 #PULAR DE LETRA EM LETRA
 #tentar fazer com interface também
@@ -17,10 +16,9 @@ from sklearn.preprocessing import PolynomialFeatures
 dx_global = 0
 dy_global = 0
 
-
 last_execution_time = 0
-#dx_l = np.random.rand(5).tolist()
-#dy_l = np.random.rand(5).tolist()
+dx_l = np.random.rand(5).tolist()
+dy_l = np.random.rand(5).tolist()
 def calc_dx_dy(a,b,c,d,pitchyaw,scale=1.7):
     global dx_global, dy_global
     length = c * scale #I CAN RESCALE THE ARROW
@@ -28,118 +26,70 @@ def calc_dx_dy(a,b,c,d,pitchyaw,scale=1.7):
     dx = -length * np.sin(pitchyaw[0]) * np.cos(pitchyaw[1])
     dy = -length * np.sin(pitchyaw[1])
 
-    #dx_l.pop(0)
-    #dy_l.pop(0)
+    dx_l.pop(0)
+    dy_l.pop(0)
 
-    #dx_l.append(dx)
-    #dy_l.append(dy)
+    dx_l.append(dx)
+    dy_l.append(dy)
 
-    #dx_mean = np.mean(dx_l)
-    #dy_mean = np.mean(dy_l)
+    dx_mean = np.mean(dx_l)
+    dy_mean = np.mean(dy_l)
 
-    #dx_global = dx_mean
-    #dy_global = dy_mean
+    dx_global = dx_mean
+    dy_global = dy_mean
 
-    return dx, dy
+    return dx_mean, dy_mean
 
-
-def get_label_to_coords():
-    """Retorna dicionário completo de labels para coordenadas"""
-    return {
-        1: (50.0, 50.0),
-        5: (656.0, 50.0),
-        9: (1263.0, 50.0),
-        13: (1870.0, 50.0),
-        2: (50.0, 376.0),
-        6: (656.0, 376.0),
-        10: (1263.0, 376.0),
-        14: (1870.0, 376.0),
-        3: (50.0, 703.0),
-        7: (656.0, 703.0),
-        11: (1263.0, 703.0),
-        15: (1870.0, 703.0),
-        4: (50.0, 1030.0),
-        8: (656.0, 1030.0),
-        12: (1263.0, 1030.0),
-        16: (1870.0, 1030.0)
-    }
-
-def move_cursor(results: GazeResultContainer, kb_t, calc_t, google_t, model_x, model_y, blink):
+coord_x_list = np.random.rand(3).tolist()
+coord_y_list = np.random.rand(3).tolist()
+def move_cursor(results: GazeResultContainer, kb_t, calc_t, google_t, pos_x, pos_y):
     global last_execution_time
-    poly = PolynomialFeatures(degree=2)
     current_time = time.time()
-    dici = get_label_to_coords()
-    for i in range(results.pitch.shape[0]):
-        bbox = results.bboxes[i]
-        pitch = results.pitch[i]
-        yaw = results.yaw[i]
 
-        #print(pitch, yaw)
-
-        # Extract safe min and max of x,y
-        x_min = int(bbox[0])
-        if x_min < 0:
-            x_min = 0
-        y_min = int(bbox[1])
-        if y_min < 0:
-            y_min = 0
-        x_max = int(bbox[2])
-        y_max = int(bbox[3])
-
-        # Compute sizes
-        bbox_width = x_max - x_min
-        bbox_height = y_max - y_min
-
-    #ttt = np.array([[results.pitch, results.yaw]])
-    #if ttt.ndim > 2:
-    #    ttt = ttt.reshape(-1, 2)
-    #poly.fit(ttt)
-    #X_test_poly = poly.transform(ttt)
-
-    #x_pred = model_x.predict(X_test_poly)
-    #y_pred = model_y.predict(X_test_poly)
-    #x_pred = x_pred[0]
-    #y_pred = y_pred[0]
-    print("AA")
-    info = [[pitch, yaw]]
-    #print("INFO OK")
-    #print("PITCH: ",pitch)
-    #print("YAW: ", yaw)
-    coords = model_x.predict(info)
-    print()
-    print(coords)
-    print(dici[coords[0]])
-    print()
-
-    #print(x_pred)
-    #print(y_pred)
-    #print()
-
-# 500 - 1500
-# 200 - 800
-
+    #print(f"dx = {dx_mean} /// dy = {dy_mean}")
     center_all = False
     right = False
     left = False
     top = False
     bottom = False
 
+    coord_x_list.pop(0)
+    coord_y_list.pop(0)
+
+    coord_x_list.append(pos_x)
+    coord_y_list.append(pos_y)
+
+    coord_x = np.mean(coord_x_list)
+    coord_y = np.mean(coord_y_list)
+
+#calibração puxando informações de um csv ou notepad
+    limit_right = 1520
+    limit_left = 400
+    limit_top = 280
+    limit_bot = 800
+
     x, y = pag.position()
-
-    pag.moveTo(dici[coords[0]][0], dici[coords[0]][1])
-    return -1
-'''    if x_pred > 500 and x_pred < 1500 and y_pred > 200 and y_pred < 800:
+    if coord_x > limit_left and coord_x < limit_right and coord_y < limit_bot and coord_y > limit_top:
         center_all = True
-    elif x_pred <= 500:
+    elif coord_x <= limit_left:
         left = True
-    elif x_pred >= 1500:
+    elif coord_x >= limit_right:
         right = True
-    elif y_pred <= 200:
+    elif coord_y <= limit_top:
         top = True
-    elif y_pred >= 800:
+    elif coord_y >= limit_bot:
         bottom = True
-        blink = False
+    #print(coord_x, coord_y)
 
+
+    #X
+    #1 -> 320
+    #2 -> 960
+    #3 -> 1600
+
+    #Y
+    #1 -> 270
+    #2 -> 810
     px, py = 0, 0
     if kb_t:
         interface_geral = False
@@ -157,9 +107,7 @@ def move_cursor(results: GazeResultContainer, kb_t, calc_t, google_t, model_x, m
         interface_geral = True
         px = 485
         py = 320
-
-    #print(blink)
-    if current_time - last_execution_time >= 0.5 and not blink: #a cada x segundos é possível fazer um movimento com o cursor
+    if current_time - last_execution_time >= 0.5: #a cada x segundos é possível fazer um movimento com o cursor
         last_execution_time = current_time
         if interface_geral:
             if center_all:
@@ -198,11 +146,13 @@ def move_cursor(results: GazeResultContainer, kb_t, calc_t, google_t, model_x, m
             elif bottom:
                 print("BOTTOM")
                 if y + py < 1080:
-                    pag.moveTo(x, y + py)'''
+                    pag.moveTo(x, y + py)
 
 
+#
 
-def draw_gaze(a,b,c,d,image_in, pitchyaw, thickness=2, color=(255, 255, 0),scale=1.7):
+
+def draw_gaze(a,b,c,d,image_in, pitchyaw, thickness=2, color=(255, 255, 0),scale=1.7, dx_l=dx_l, dy_l=dy_l):
     """Draw gaze angle on given image with a given eye positions."""
     image_out = image_in
     (h, w) = image_in.shape[:2]
@@ -213,18 +163,19 @@ def draw_gaze(a,b,c,d,image_in, pitchyaw, thickness=2, color=(255, 255, 0),scale
     dx = -length * np.sin(pitchyaw[0]) * np.cos(pitchyaw[1])
     dy = -length * np.sin(pitchyaw[1])
 
-    #dx_l.pop(0)
-    #dy_l.pop(0)
+    dx_l.pop(0)
+    dy_l.pop(0)
 
-    #dx_l.append(dx)
-    #dy_l.append(dy)
+    dx_l.append(dx)
+    dy_l.append(dy)
 
-    #dx_mean = np.mean(dx_l)
-    #dy_mean = np.mean(dy_l)
+    dx_mean = np.mean(dx_l)
+    dy_mean = np.mean(dy_l)
+
     cv2.arrowedLine(image_out, tuple(np.round(pos).astype(np.int32)),
-                   tuple(np.round([pos[0] + dx, pos[1] + dy]).astype(int)), color,
+                   tuple(np.round([pos[0] + dx_mean, pos[1] + dy_mean]).astype(int)), color,
                    thickness, cv2.LINE_AA, tipLength=0.18)
-    return dx, dy, image_out  #esse return não importa o que retorna
+    return dx_l, dy_l, image_out  #esse return não importa o que retorna
 
     #FUNÇÃO INTERIOR PARA COLETAR AS DIREÇÕES
     #get_direcoes(left, right, top, bottom, center, center_all)

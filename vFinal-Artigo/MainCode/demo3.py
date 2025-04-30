@@ -18,7 +18,31 @@ import interface_google
 import mouse_clicks.click as click
 import dlib
 import new_interface
+import csv
 
+def quantize_to_grid(x, y, cell_width, grid_cols, cell_height, grid_rows):
+    col = min(x // cell_width, grid_cols - 1)
+    row = min(y // cell_height, grid_rows - 1)
+
+    # Calcula o centro da célula
+    x_center = (col * cell_width) + (cell_width // 2)
+    y_center = (row * cell_height) + (cell_height // 2)
+
+    return (x_center, y_center)
+
+def load_and_convert_csv(file_path):
+    data = []
+    with open(file_path, newline='') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            # Converte cada valor na linha para float
+            try:
+                converted_row = [float(value) for value in row]
+                data.append(converted_row)
+            except ValueError as e:
+                print(f"Aviso: Não foi possível converter a linha {row}: {e}")
+                continue
+    return np.array(data)
 
 CWD = pathlib.Path.cwd()
 
@@ -62,6 +86,7 @@ if __name__ == '__main__':
     detector = dlib.get_frontal_face_detector()
     predictor = dlib.shape_predictor('./mouse_clicks/shape_predictor_68_face_landmarks.dat')
     frame_count = 0
+    width, height = 1920, 1080
 
     interface_tela = threading.Thread(target=new_interface.Interface)
 
@@ -70,15 +95,27 @@ if __name__ == '__main__':
     cap.set(cv2.CAP_PROP_FPS, 12) #NÃO COMENTAR NEM REMOVER ESSA LINHA
     #print(cap.get(cv2.CAP_PROP_FPS))
 
+    file_path = 'calib_10xPonto/calib12/calib_file12_pt2.csv'
+    data = load_and_convert_csv(file_path)
+
+    pitch_min = np.mean((data[0][0], data[2][0]))
+    pitch_max = np.mean((data[1][0], data[3][0]))
+    yaw_min = np.mean((data[0][1], data[1][1]))
+    yaw_max = np.mean((data[2][1], data[3][1]))
+
+    pitch_offset = -pitch_min
+    yaw_offset = -yaw_min
+
+
     # Check if the webcam is opened correctly
     if not cap.isOpened():
         raise IOError("Cannot open webcam")
     else:
         print("Webcam OK")
-        #interface_tela.start()
+        interface_tela.start()
         print("INTERFACE OK")
     with torch.no_grad():
-        while True: #enquanto o programa roda ...
+        while interface_tela.is_alive(): #enquanto o programa roda ...
             # Get frame
             success, frame = cap.read()
             start_fps = time.time()
@@ -90,7 +127,7 @@ if __name__ == '__main__':
             blinking = click.click_mouse(detector, predictor, frame)
             print(blinking)
             #CLICK NA PISCADA
-            if blinking >= 4 and success:
+            if blinking >= 4.4 and success:
                 frame_count+=1
                 print("PRINT FRAME COUNT ", frame_count)
                 if frame_count == 12:
@@ -102,8 +139,21 @@ if __name__ == '__main__':
 
             # Process frame
             results = gaze_pipeline.step(frame) #calc é feito
+
+            pitch_max_escalonado = pitch_max + pitch_offset
+            pitch_escalonado = results.pitch + pitch_offset
+            pos_x = (pitch_escalonado / pitch_max_escalonado) * width
+
+            yaw_max_escalonado = yaw_max + yaw_offset
+            yaw_escalonado = results.yaw + yaw_offset
+            pos_y = (yaw_escalonado / yaw_max_escalonado) * height
+
             try:
-                vis.move_cursor(results, teclado.keyb_thread_on, calculadora.calc_thread_on, interface_google.interface_google_on)
+                if pos_y >= 800:
+                    vis.move_cursor(results, teclado.keyb_thread_on, calculadora.calc_thread_on,interface_google.interface_google_on, pos_x, pos_y)
+                else:
+                    if blinking <= 4.4 and success:
+                        vis.move_cursor(results, teclado.keyb_thread_on, calculadora.calc_thread_on, interface_google.interface_google_on, pos_x, pos_y)
             except:
                 print("0 FACES DETECTADAS")
 

@@ -4,7 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f181f1d-c362-4697-85eb-1b8014119cbc" name="Changes" comment="" />
+    <list default="true" id="7f181f1d-c362-4697-85eb-1b8014119cbc" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vFinal-Artigo/MainCode/calib_10xPonto/calib11/results/test_tResult_GridShape10x16.csv" beforeDir="false" afterPath="$PROJECT_DIR$/vFinal-Artigo/MainCode/calib_10xPonto/calib11/results/test_tResult_GridShape10x16.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vFinal-Artigo/MainCode/calib_10xPonto/calib11/results/test_tResult_GridShape11x18.csv" beforeDir="false" afterPath="$PROJECT_DIR$/vFinal-Artigo/MainCode/calib_10xPonto/calib11/results/test_tResult_GridShape11x18.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vFinal-Artigo/MainCode/calib_10xPonto/calib11/results/test_tResult_GridShape13x21.csv" beforeDir="false" afterPath="$PROJECT_DIR$/vFinal-Artigo/MainCode/calib_10xPonto/calib11/results/test_tResult_GridShape13x21.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vFinal-Artigo/MainCode/calib_10xPonto/calib11/results/test_tResult_GridShape2x2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/vFinal-Artigo/MainCode/calib_10xPonto/calib11/results/test_tResult_GridShape2x2.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vFinal-Artigo/MainCode/calib_10xPonto/calib11/results/test_tResult_GridShape3x3.csv" beforeDir="false" afterPath="$PROJECT_DIR$/vFinal-Artigo/MainCode/calib_10xPonto/calib11/results/test_tResult_GridShape3x3.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vFinal-Artigo/MainCode/calib_10xPonto/calib11/results/test_tResult_GridShape4x4.csv" beforeDir="false" afterPath="$PROJECT_DIR$/vFinal-Artigo/MainCode/calib_10xPonto/calib11/results/test_tResult_GridShape4x4.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vFinal-Artigo/MainCode/calib_10xPonto/calib11/results/test_tResult_GridShape5x8.csv" beforeDir="false" afterPath="$PROJECT_DIR$/vFinal-Artigo/MainCode/calib_10xPonto/calib11/results/test_tResult_GridShape5x8.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vFinal-Artigo/MainCode/calib_10xPonto/calib11/results/test_tResult_GridShape6x10.csv" beforeDir="false" afterPath="$PROJECT_DIR$/vFinal-Artigo/MainCode/calib_10xPonto/calib11/results/test_tResult_GridShape6x10.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vFinal-Artigo/MainCode/calib_10xPonto/calib11/results/test_tResult_GridShape7x12.csv" beforeDir="false" afterPath="$PROJECT_DIR$/vFinal-Artigo/MainCode/calib_10xPonto/calib11/results/test_tResult_GridShape7x12.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vFinal-Artigo/MainCode/calib_10xPonto/calib11/results/test_tResult_GridShape9x14.csv" beforeDir="false" afterPath="$PROJECT_DIR$/vFinal-Artigo/MainCode/calib_10xPonto/calib11/results/test_tResult_GridShape9x14.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vFinal-Artigo/MainCode/calibration_4points.py" beforeDir="false" afterPath="$PROJECT_DIR$/vFinal-Artigo/MainCode/calibration_4points.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vFinal-Artigo/MainCode/collect_points.py" beforeDir="false" afterPath="$PROJECT_DIR$/vFinal-Artigo/MainCode/collect_points.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vFinal-Artigo/MainCode/demo3.py" beforeDir="false" afterPath="$PROJECT_DIR$/vFinal-Artigo/MainCode/demo3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vFinal-Artigo/MainCode/l2cs/pipeline-or.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vFinal-Artigo/MainCode/l2cs/vis-or.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vFinal-Artigo/MainCode/l2cs/vis.py" beforeDir="false" afterPath="$PROJECT_DIR$/vFinal-Artigo/MainCode/l2cs/vis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vFinal-Artigo/MainCode/new_interface.py" beforeDir="false" afterPath="$PROJECT_DIR$/vFinal-Artigo/MainCode/new_interface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vFinal-Artigo/MainCode/tratamento_noModel.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/vFinal-Artigo/MainCode/tratamento_noModel.ipynb" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,42 +48,51 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.calc_thread.executor": "Run",
-    "Python.calcgp (1).executor": "Run",
-    "Python.calculadora.executor": "Run",
-    "Python.demo.executor": "Run",
-    "Python.gui (1).executor": "Run",
-    "Python.gui.executor": "Run",
-    "Python.interface (1).executor": "Run",
-    "Python.interface.executor": "Run",
-    "Python.interface_v2.executor": "Run",
-    "Python.keybgp.executor": "Run",
-    "Python.keyboard_thread.executor": "Run",
-    "Python.mouse_click.executor": "Run",
-    "Python.move_mouse.executor": "Run",
-    "Python.read_pkl.executor": "Run",
-    "Python.teclado.executor": "Run",
-    "Python.teste.executor": "Run",
-    "Python.teste_thread.executor": "Run",
-    "Python.testeautogui.executor": "Run",
-    "Python.train.executor": "Run",
-    "Python.vis.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/fapesp-inatel/git_/EyesOn_1"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.calc_thread.executor&quot;: &quot;Run&quot;,
+    &quot;Python.calcgp (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.calculadora.executor&quot;: &quot;Run&quot;,
+    &quot;Python.calibration_4points.executor&quot;: &quot;Run&quot;,
+    &quot;Python.calibration_5points.executor&quot;: &quot;Run&quot;,
+    &quot;Python.collect_points.executor&quot;: &quot;Run&quot;,
+    &quot;Python.demo.executor&quot;: &quot;Run&quot;,
+    &quot;Python.demo3.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gui (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.gui.executor&quot;: &quot;Run&quot;,
+    &quot;Python.interface (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.interface.executor&quot;: &quot;Run&quot;,
+    &quot;Python.interface_v2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.keybgp.executor&quot;: &quot;Run&quot;,
+    &quot;Python.keyboard_thread.executor&quot;: &quot;Run&quot;,
+    &quot;Python.mouse_click.executor&quot;: &quot;Run&quot;,
+    &quot;Python.move_mouse.executor&quot;: &quot;Run&quot;,
+    &quot;Python.read_pkl.executor&quot;: &quot;Run&quot;,
+    &quot;Python.teclado.executor&quot;: &quot;Run&quot;,
+    &quot;Python.tecladov2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.teste.executor&quot;: &quot;Run&quot;,
+    &quot;Python.teste_thread.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testeautogui.executor&quot;: &quot;Run&quot;,
+    &quot;Python.train.executor&quot;: &quot;Run&quot;,
+    &quot;Python.vis.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/PyProjects/EyesOn/vFinal-Artigo/MainCode&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\PyProjects\EyesOn\vFinal-Artigo\MainCode" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\fapesp-inatel\git_\EyesOn\old" />
       <recent name="C:\Users\fapesp-inatel\git_\EyesOn\MainCode" />
       <recent name="C:\Users\fapesp-inatel\git_\EyesOn\MainCode\models" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.demo">
-    <configuration name="calculadora" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.collect_points">
+    <configuration name="calibration_4points" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="EyesOn" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -72,11 +101,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/MainCode/interface_v2_folder" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/vFinal-Artigo/MainCode" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MainCode/interface_v2_folder/calculadora.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/vFinal-Artigo/MainCode/calibration_4points.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -85,7 +114,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="demo" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="calibration_5points" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="EyesOn" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -94,11 +123,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/MainCode" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/vFinal-Artigo/MainCode" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MainCode/demo.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/vFinal-Artigo/MainCode/calibration_5points.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -107,7 +136,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="interface" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="collect_points" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="EyesOn" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -116,11 +145,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/MainCode/interface_v2_folder" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/vFinal-Artigo/MainCode" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MainCode/interface_v2_folder/interface.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/vFinal-Artigo/MainCode/collect_points.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -129,7 +158,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="interface_v2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="demo3" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="EyesOn" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -138,11 +167,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/MainCode" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/vFinal-Artigo/MainCode" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MainCode/interface_v2.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/vFinal-Artigo/MainCode/demo3.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -151,7 +180,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="teclado" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="teste" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="EyesOn" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -160,11 +189,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/MainCode/interface_v2_folder" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/vFinal-Artigo/MainCode" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MainCode/interface_v2_folder/teclado.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/vFinal-Artigo/MainCode/teste.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -175,18 +204,18 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.demo" />
-        <item itemvalue="Python.calculadora" />
-        <item itemvalue="Python.teclado" />
-        <item itemvalue="Python.interface" />
-        <item itemvalue="Python.interface_v2" />
+        <item itemvalue="Python.collect_points" />
+        <item itemvalue="Python.demo3" />
+        <item itemvalue="Python.calibration_4points" />
+        <item itemvalue="Python.calibration_5points" />
+        <item itemvalue="Python.teste" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-0509580d9d50-746f403e7f0c-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.14494.241" />
+        <option value="bundled-python-sdk-a5bc9544c897-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.23654.177" />
       </set>
     </attachedChunks>
   </component>
