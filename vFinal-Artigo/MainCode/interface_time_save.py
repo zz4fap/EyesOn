@@ -14,16 +14,32 @@ import csv
 # Shared flag to control threads
 running = True
 ac_tracker = []
-tempo = 0
+last_click_time = time.time()  # Armazena o tempo do último clique
 
 def mouse_listener():
     global ac_tracker
-    global tempo
-    def on_click(x, y, button, pressed, tempo):
-        if running:
-            print(f"Mouse clicked at ({x}, {y}) with {button}")
-            ac_tracker.append( ( time.time() - tempo, teclado.keyb_thread_on, calculadora.calc_thread_on, interface_google.interface_google_on) )
-            tempo = time.time()
+    global last_click_time
+    
+    def on_click(x, y, button, pressed):
+        global last_click_time
+        if not pressed or not running:
+            return
+            
+        current_time = time.time()
+        time_since_last_click = current_time - last_click_time
+        last_click_time = current_time
+        
+        print(f"Mouse clicked at ({x}, {y}) with {button}")
+        print(f"Tempo desde o último clique: {time_since_last_click:.3f} segundos")
+        
+        # Adiciona à lista de tracking (ajuste conforme suas variáveis globais)
+        ac_tracker.append((
+            time_since_last_click,
+            teclado.keyb_thread_on if 'teclado' in globals() else None,
+            calculadora.calc_thread_on if 'calculadora' in globals() else None,
+            interface_google.interface_google_on if 'interface_google' in globals() else None
+        ))
+        print(len(ac_tracker))
 
     with Listener(on_click=on_click) as listener:
         while running:
@@ -301,10 +317,10 @@ if __name__ == "__main__":
     # Start the interface (which runs in the main thread)
     Interface()
 
-    with open('ac_tracker_mouse.csv', 'w', newline="") as f:
+    with open('avaliacoes/luiz/ac_tracker_mouse.csv', 'w', newline="") as f:
             # using csv.writer method from CSV package
             write = csv.writer(f)
-            write.writerow(['Tempo desde último', 'Teclado ativo', 'Calculadora ativa', 'Google ativo'])
+            write.writerow(['Tempo desde ultimo', 'Teclado ativo', 'Calculadora ativa', 'Google ativo'])
             write.writerows(ac_tracker)
 
     # When the interface is closed, the running flag will be set to False

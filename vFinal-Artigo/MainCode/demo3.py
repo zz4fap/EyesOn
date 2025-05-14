@@ -185,7 +185,7 @@ if __name__ == '__main__':
 
 with open('avaliacoes/luiz/ac_tracker.csv', 'w') as f:
     write = csv.writer(f)
-    write.writerow(['Tempo desde último', 'Teclado ativo', 'Calculadora ativa', 'Google ativo'])
+    write.writerow(['Tempo desde ultimo', 'Teclado ativo', 'Calculadora ativa', 'Google ativo'])
     write.writerows(ac_tracker)
 
 
