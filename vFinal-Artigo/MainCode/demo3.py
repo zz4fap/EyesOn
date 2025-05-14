@@ -87,6 +87,9 @@ if __name__ == '__main__':
     predictor = dlib.shape_predictor('./mouse_clicks/shape_predictor_68_face_landmarks.dat')
     frame_count = 0
     width, height = 1920, 1080
+    tempo = 0
+    aux_tempo = True
+    ac_tracker = []
 
     interface_tela = threading.Thread(target=new_interface.Interface)
 
@@ -95,7 +98,7 @@ if __name__ == '__main__':
     cap.set(cv2.CAP_PROP_FPS, 12) #NÃO COMENTAR NEM REMOVER ESSA LINHA
     #print(cap.get(cv2.CAP_PROP_FPS))
 
-    file_path = 'calib_10xPonto/calib12/calib_file12_pt2.csv'
+    file_path = 'avaliacoes/luiz/calib_file.csv'
     data = load_and_convert_csv(file_path)
 
     pitch_min = np.mean((data[0][0], data[2][0]))
@@ -120,6 +123,11 @@ if __name__ == '__main__':
             success, frame = cap.read()
             start_fps = time.time()
 
+
+            if aux_tempo:
+                tempo = time.time()
+                aux_tempo = False
+
             if not success:
                 print("Failed to obtain frame")
                 time.sleep(0.1)
@@ -133,8 +141,11 @@ if __name__ == '__main__':
                 if frame_count == 12:
                     pag.click()
                     frame_count = 0
+                    ac_tracker.append( ( time.time() - tempo, teclado.keyb_thread_on, calculadora.calc_thread_on, interface_google.interface_google_on) )
+                    aux_tempo = True
             else:
                 frame_count = 0
+                b_act = False
 
 
             # Process frame
@@ -171,6 +182,11 @@ if __name__ == '__main__':
                 break
             success,frame = cap.read()
         cap.release()
+
+with open('avaliacoes/luiz/ac_tracker.csv', 'w') as f:
+    write = csv.writer(f)
+    write.writerow(['Tempo desde último', 'Teclado ativo', 'Calculadora ativa', 'Google ativo'])
+    write.writerows(ac_tracker)
 
 
 avg_fps = np.array(avg_fps)

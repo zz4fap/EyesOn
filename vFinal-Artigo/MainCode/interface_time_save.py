@@ -1,12 +1,34 @@
+import threading
+from pynput.mouse import Listener
+import time
 from pathlib import Path
 from tkinter import Tk, Canvas, Button, PhotoImage
 import webbrowser
-import time
 import pyautogui as pag
 import teclado
 import calculadora
 import interface_google
 import interface_youtube
+import csv
+
+# Shared flag to control threads
+running = True
+ac_tracker = []
+tempo = 0
+
+def mouse_listener():
+    global ac_tracker
+    global tempo
+    def on_click(x, y, button, pressed, tempo):
+        if running:
+            print(f"Mouse clicked at ({x}, {y}) with {button}")
+            ac_tracker.append( ( time.time() - tempo, teclado.keyb_thread_on, calculadora.calc_thread_on, interface_google.interface_google_on) )
+            tempo = time.time()
+
+    with Listener(on_click=on_click) as listener:
+        while running:
+            time.sleep(0.1)
+        listener.stop()
 
 class Interface:
     def __init__(self):
@@ -14,11 +36,19 @@ class Interface:
         self.window.geometry("1920x1080")
         self.window.configure(bg="#FFFFFF")
         self.window.resizable(False, False)
-
+        
+        # Set up a protocol to handle window closing
+        self.window.protocol("WM_DELETE_WINDOW", self.on_close)
+        
         self.main()
-
         self.window.mainloop()
 
+    def on_close(self):
+        global running
+        running = False  # This will stop the mouse listener thread
+        self.window.destroy()
+
+    # [Rest of your Interface class methods remain the same...]
     def main(self):
         OUTPUT_PATH = Path(__file__).parent
         ASSETS_PATH = OUTPUT_PATH / Path(r"C:\luiz.e_files\EyesOn\vFinal-Artigo\MainCode\interfacev4\assets\frame0")
@@ -262,13 +292,20 @@ class Interface:
         time.sleep(3)
         pag.hotkey("ctrl", "w")
 
+if __name__ == "__main__":
+    # Start the mouse listener thread
+    mouse_thread = threading.Thread(target=mouse_listener)
+    mouse_thread.daemon = True  # This makes the thread exit when the main program exits
+    mouse_thread.start()
 
-#Interface()
-'''
-import pyautogui as pag
-pag.moveTo(1595, 345)
-pag.moveTo(1110, 345)
-pag.moveTo(1110, 665)
-pag.moveTo(1595, 665)
-Interface()
-'''
+    # Start the interface (which runs in the main thread)
+    Interface()
+
+    with open('ac_tracker_mouse.csv', 'w', newline="") as f:
+            # using csv.writer method from CSV package
+            write = csv.writer(f)
+            write.writerow(['Tempo desde último', 'Teclado ativo', 'Calculadora ativa', 'Google ativo'])
+            write.writerows(ac_tracker)
+
+    # When the interface is closed, the running flag will be set to False
+    # and the mouse thread will stop

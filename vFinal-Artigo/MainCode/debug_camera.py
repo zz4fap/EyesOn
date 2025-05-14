@@ -1,7 +1,4 @@
-import torch
-print(torch.cuda.is_available())
-
-'''import cv2
+import cv2
 
 def activate_webcam():
     # Open the webcam (0 is usually the default webcam)
@@ -23,4 +20,4 @@ def activate_webcam():
     cv2.destroyAllWindows()
 
 # Call the function to activate the webcam
-activate_webcam()'''
+activate_webcam()

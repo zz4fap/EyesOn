@@ -1,3 +1,5 @@
+import cv2
+
 def calcular_posicao_grid(row, col, cell_width, cell_height):
     x = col * cell_width + cell_width // 2
     y = row * cell_height + cell_height // 2

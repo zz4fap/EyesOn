@@ -51,10 +51,13 @@ class CalibrationPoints(threading.Thread):
         """Executa o loop principal."""
         # Inicializa o pygame
         global ball_global
+        global iniciar
         pygame.init()
         screen = pygame.display.set_mode((self.screen_width, self.screen_height))
         pygame.display.set_caption("4 Pontos com Base na Matriz")
-        time.sleep(7.6)
+        while not iniciar:
+            time.sleep(0.5)
+            continue
         for pos in self.positions:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -89,6 +92,7 @@ sec_cont = 0
 py_global = []
 contador = 0
 posicoes = calcular_posicoes()
+iniciar = False
 class GazeEvaluationThread(threading.Thread):
     def __init__(self, device="cpu", snapshot='output/snapshots/L2CS-gaze360-_loader-180-4/_epoch_55.pkl',
                  cam_id=0, arch='ResNet50'):
@@ -118,6 +122,7 @@ class GazeEvaluationThread(threading.Thread):
         """Executa o loop principal da thread."""
         global stop_time
         global py_global
+        global iniciar
         y_list = []
         p_list = []
         global contador
@@ -135,6 +140,7 @@ class GazeEvaluationThread(threading.Thread):
                 k = True
                 
                 success, frame = self.cap.read()
+                iniciar = True
                 if not success:
                     print("Failed to obtain frame")
                     time.sleep(0.1)
@@ -160,7 +166,7 @@ class GazeEvaluationThread(threading.Thread):
 
                 if time.time() - new_start > 21: #4points 5s each = 20 + 1
                     stop_time = True
-                    with open('calib_10xPonto/calib12/calib_file12.csv', 'w', newline='') as f:
+                    with open('avaliacoes/luiz/calib_file.csv', 'w', newline='') as f:
                         # using csv.writer method from CSV package
                         write = csv.writer(f)
                         write.writerows(py_global)
@@ -187,7 +193,7 @@ class GazeEvaluationThread(threading.Thread):
             description='Gaze evaluation using model pretrained with L2CS-Net on Gaze360.')
         parser.add_argument(
             '--device', dest='device', help='Device to run model: cpu or gpu:0',
-            default="cpu", type=str)
+            default="cuda", type=str)
         parser.add_argument(
             '--snapshot', dest='snapshot', help='Path of model snapshot.',
             default='output/snapshots/L2CS-gaze360-_loader-180-4/_epoch_55.pkl', type=str)
