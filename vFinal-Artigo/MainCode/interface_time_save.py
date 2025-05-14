@@ -15,7 +15,7 @@ import csv
 running = True
 ac_tracker = []
 last_click_time = time.time()  # Armazena o tempo do último clique
-#
+
 def mouse_listener():
     global ac_tracker
     global last_click_time
@@ -39,7 +39,7 @@ def mouse_listener():
             calculadora.calc_thread_on if 'calculadora' in globals() else None,
             interface_google.interface_google_on if 'interface_google' in globals() else None
         ))
-        print(len(ac_tracker))
+        #print(len(ac_tracker))
 
     with Listener(on_click=on_click) as listener:
         while running:

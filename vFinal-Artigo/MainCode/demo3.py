@@ -135,7 +135,7 @@ if __name__ == '__main__':
             blinking = click.click_mouse(detector, predictor, frame)
             print(blinking)
             #CLICK NA PISCADA
-            if blinking >= 4.4 and success:
+            if blinking >= 4 and success:
                 frame_count+=1
                 print("PRINT FRAME COUNT ", frame_count)
                 if frame_count == 12:
@@ -162,8 +162,9 @@ if __name__ == '__main__':
             try:
                 if pos_y >= 800:
                     vis.move_cursor(results, teclado.keyb_thread_on, calculadora.calc_thread_on,interface_google.interface_google_on, pos_x, pos_y)
+                    frame_count = 0
                 else:
-                    if blinking <= 4.4 and success:
+                    if blinking <= 4 and success:
                         vis.move_cursor(results, teclado.keyb_thread_on, calculadora.calc_thread_on, interface_google.interface_google_on, pos_x, pos_y)
             except:
                 print("0 FACES DETECTADAS")
@@ -183,7 +184,7 @@ if __name__ == '__main__':
             success,frame = cap.read()
         cap.release()
 
-with open('avaliacoes/luiz/ac_tracker.csv', 'w') as f:
+with open('avaliacoes/luiz/ac_tracker2.csv', 'w', newline="") as f:
     write = csv.writer(f)
     write.writerow(['Tempo desde ultimo', 'Teclado ativo', 'Calculadora ativa', 'Google ativo'])
     write.writerows(ac_tracker)
@@ -191,43 +192,3 @@ with open('avaliacoes/luiz/ac_tracker.csv', 'w') as f:
 
 avg_fps = np.array(avg_fps)
 print("AVERAGE FPS: ", np.mean(avg_fps))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
