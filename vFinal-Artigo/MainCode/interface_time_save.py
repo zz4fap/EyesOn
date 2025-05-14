@@ -15,7 +15,7 @@ import csv
 running = True
 ac_tracker = []
 last_click_time = time.time()  # Armazena o tempo do último clique
-
+#
 def mouse_listener():
     global ac_tracker
     global last_click_time
